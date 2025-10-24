@@ -24,5 +24,31 @@ urlpatterns = [
 
 # Django site authentication urls (for login, logout, password management)
 
-urlpatterns += [path('accounts/', include('django.contrib.auth.urls')),
+
+
+
+urlpatterns += [path('mybooks/', views.LoanedBooksByUserListView.as_view(), 
+                     name='my-borrowed'),               
                 ]
+
+urlpatterns += [path('book/<uuid:pk>/renew/', views.renew_book_librarian, 
+                     name='book_renew_librarian'),
+                     ]
+
+urlpatterns += [path('borrowed/', views.LoanedBooksLibrarianView.as_view(), 
+                     name='borrowed'),               
+                ]
+
+urlpatterns += [
+    path('author/create/', views.AuthorCreate.as_view(), name='author-create'),
+    path('author/<int:pk>/update/', views.AuthorUpdate.as_view(), name='author-update'),
+    path('author/<int:pk>/delete/', views.AuthorDelete.as_view(), name='author-delete'),
+    
+    path('authors/', views.AuthorListView.as_view(), name='authors'),
+    path('author/<int:pk>', views.AuthorDetailView.as_view(), name='author-detail'),
+
+    path('book/create/', views.BookCreate.as_view(), name='book-create'),
+
+]
+
+
